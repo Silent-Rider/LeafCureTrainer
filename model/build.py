@@ -2,9 +2,11 @@ import keras
 import tensorflow as tf
 from keras import Model, regularizers
 from keras.src.applications.efficientnet import EfficientNetB0
+from keras.src.applications.efficientnet import preprocess_input as efficientnet_preprocess_input
 from keras.src.applications.mobilenet_v3 import MobileNetV3Large
 from keras.src.applications.mobilenet_v3 import preprocess_input as mobilenet_preprocess_input
-from keras.src.applications.efficientnet import preprocess_input as efficientnet_preprocess_input
+from keras.src.applications.resnet_v2 import ResNet50V2
+from tensorflow.keras.applications.resnet50 import preprocess_input as resnet_preprocess_input
 from keras.src.layers import GlobalAveragePooling2D, Dense, Dropout, BatchNormalization, UpSampling2D, Concatenate, \
     Conv2D
 from keras.src.losses import binary_crossentropy
@@ -33,6 +35,17 @@ def create_efficient_net_b0(img_size: tuple):
     )
     efficient_net.trainable = False
     return efficient_net, efficientnet_preprocess_input
+
+
+def create_resnet50(img_size: tuple):
+    resnet = ResNet50V2(
+        input_shape=(*img_size, 3),
+        weights='imagenet',
+        include_top=False,
+        pooling=None
+    )
+    resnet.trainable = False
+    return resnet, resnet_preprocess_input
 
 
 def create_classification_model(deep_model, num_classes:int, learning_rate:float=0.001) -> Model:
