@@ -1,13 +1,16 @@
 import keras
 import tensorflow as tf
 from keras import Model, regularizers
+from keras.src.applications.efficientnet import EfficientNetB0
 from keras.src.applications.mobilenet_v3 import MobileNetV3Large
-from keras.src.applications.mobilenet_v3 import preprocess_input
-from keras.src.layers import GlobalAveragePooling2D, Dense, Dropout, BatchNormalization, UpSampling2D, Concatenate, Conv2D
+from keras.src.applications.mobilenet_v3 import preprocess_input as mobilenet_preprocess_input
+from keras.src.applications.efficientnet import preprocess_input as efficientnet_preprocess_input
+from keras.src.layers import GlobalAveragePooling2D, Dense, Dropout, BatchNormalization, UpSampling2D, Concatenate, \
+    Conv2D
 from keras.src.losses import binary_crossentropy
 from keras.src.metrics import BinaryIoU
-from keras.src.optimizers import Adam
 from keras.src.metrics.f_score_metrics import F1Score
+from keras.src.optimizers import Adam
 from tensorflow.keras import backend as K
 
 
@@ -18,7 +21,18 @@ def create_mobile_net_v3_large(img_size: tuple):
         include_top=False
     )
     mobile_net.trainable = False
-    return mobile_net, preprocess_input
+    return mobile_net, mobilenet_preprocess_input
+
+
+def create_efficient_net_b0(img_size: tuple):
+    efficient_net = EfficientNetB0(
+        input_shape=(*img_size, 3),
+        weights='imagenet',
+        include_top=False,
+        pooling=None
+    )
+    efficient_net.trainable = False
+    return efficient_net, efficientnet_preprocess_input
 
 
 def create_classification_model(deep_model, num_classes:int, learning_rate:float=0.001) -> Model:
@@ -52,7 +66,7 @@ def create_classification_model(deep_model, num_classes:int, learning_rate:float
     return model
 
 
-def create_segmentation_model(deep_model,
+def create_segmentation_model(mobile_net_model,
                               is_leaf_seg: bool,
                               learning_rate: float = 0.001) -> Model:
     layer_names = [
@@ -61,9 +75,9 @@ def create_segmentation_model(deep_model,
         'expanded_conv_5_add',  # 32×32
         'expanded_conv_11_add',  # 16×16
     ]
-    skip_connections = [deep_model.get_layer(name).output for name in layer_names]
+    skip_connections = [mobile_net_model.get_layer(name).output for name in layer_names]
 
-    x = deep_model.output
+    x = mobile_net_model.output
     x = upsample_block(x, skip_connections[3], 256)  # 16×16
     x = upsample_block(x, skip_connections[2], 128)  # 32×32
     x = upsample_block(x, skip_connections[1], 64)  # 64×64
@@ -75,7 +89,7 @@ def create_segmentation_model(deep_model,
     x = Dropout(0.2)(x)
     prediction = Conv2D(1, 1, activation='sigmoid')(x)
 
-    model = Model(inputs=deep_model.input, outputs=prediction)
+    model = Model(inputs=mobile_net_model.input, outputs=prediction)
 
     model.compile(
         optimizer=Adam(learning_rate=learning_rate),

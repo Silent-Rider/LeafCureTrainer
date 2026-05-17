@@ -51,13 +51,9 @@ def get_callbacks(checkpoints: bool,
     if checkpoints:
         checkpoints_path = Path(CHECKPOINTS_FOLDER) / f'{model_name}'
         checkpoints_path.mkdir(exist_ok=True)
-        checkpoint_name = 'epoch{epoch:02d}_val_acc_{val_accuracy:.4f}.keras'
+        checkpoint_name = 'epoch{epoch:02d}.keras'
         filepath = str(checkpoints_path / checkpoint_name)
-        checkpoint = ModelCheckpoint(filepath=filepath,
-                                     monitor='val_accuracy',
-                                     mode='max',
-                                     verbose=1,
-                                     save_best_only=True)
+        checkpoint = ModelCheckpoint(filepath=filepath)
         callbacks.append(checkpoint)
     if logging:
         text_logger = LogCallback(f'{model_name}.txt')
@@ -74,7 +70,7 @@ def get_callbacks(checkpoints: bool,
                               factor=0.5,
                               verbose=1,
                               mode=mode,
-                              patience=3,
+                              patience=2,
                               min_delta=1e-4,
                               min_lr=1e-7)
         )
@@ -83,7 +79,7 @@ def get_callbacks(checkpoints: bool,
             EarlyStopping(monitor=monitor,
                           verbose=1,
                           mode=mode,
-                          patience=10,
+                          patience=5,
                           restore_best_weights=True)
         )
 
