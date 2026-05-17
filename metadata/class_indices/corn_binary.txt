@@ -1,0 +1,2 @@
+0: Corn_(maize)___diseases
+1: Corn_(maize)___healthy

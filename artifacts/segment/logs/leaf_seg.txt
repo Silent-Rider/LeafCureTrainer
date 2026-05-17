@@ -1,0 +1,180 @@
+	Epoch 1/30
+iou: 0.8782 - val_iou: 0.9697
+dice_coef: 0.9065 - val_dice_coef: 0.9829
+loss: 0.1198 - val_loss: 0.0399
+total time: 4 minutes 4.94 seconds
+
+	Epoch 2/30
+iou: 0.9782 - val_iou: 0.9837
+dice_coef: 0.9810 - val_dice_coef: 0.9883
+loss: 0.0243 - val_loss: 0.0172
+total time: 5 minutes 7.36 seconds
+
+	Epoch 3/30
+iou: 0.9869 - val_iou: 0.9869
+dice_coef: 0.9890 - val_dice_coef: 0.9893
+loss: 0.0145 - val_loss: 0.0144
+total time: 6 minutes 10.03 seconds
+
+	Epoch 4/30
+iou: 0.9904 - val_iou: 0.9888
+dice_coef: 0.9921 - val_dice_coef: 0.9906
+loss: 0.0105 - val_loss: 0.0125
+total time: 7 minutes 12.11 seconds
+
+	Epoch 5/30
+iou: 0.9924 - val_iou: 0.9904
+dice_coef: 0.9938 - val_dice_coef: 0.9919
+loss: 0.0083 - val_loss: 0.0108
+total time: 8 minutes 34.74 seconds
+
+	Epoch 6/30
+iou: 0.9937 - val_iou: 0.9918
+dice_coef: 0.9949 - val_dice_coef: 0.9931
+loss: 0.0069 - val_loss: 0.0092
+total time: 9 minutes 36.64 seconds
+
+	Epoch 7/30
+iou: 0.9946 - val_iou: 0.9927
+dice_coef: 0.9957 - val_dice_coef: 0.9940
+loss: 0.0059 - val_loss: 0.0081
+total time: 10 minutes 39.01 seconds
+
+	Epoch 8/30
+iou: 0.9952 - val_iou: 0.9931
+dice_coef: 0.9962 - val_dice_coef: 0.9945
+loss: 0.0052 - val_loss: 0.0076
+total time: 12 minutes 1.47 seconds
+
+	Epoch 9/30
+iou: 0.9956 - val_iou: 0.9938
+dice_coef: 0.9965 - val_dice_coef: 0.9952
+loss: 0.0048 - val_loss: 0.0068
+total time: 13 minutes 4.39 seconds
+
+	Epoch 10/30
+iou: 0.9959 - val_iou: 0.9942
+dice_coef: 0.9968 - val_dice_coef: 0.9956
+loss: 0.0045 - val_loss: 0.0065
+total time: 14 minutes 6.91 seconds
+
+	Epoch 11/30
+iou: 0.9962 - val_iou: 0.9944
+dice_coef: 0.9971 - val_dice_coef: 0.9958
+loss: 0.0041 - val_loss: 0.0062
+total time: 15 minutes 29.51 seconds
+
+	Epoch 12/30
+iou: 0.9964 - val_iou: 0.9947
+dice_coef: 0.9973 - val_dice_coef: 0.9961
+loss: 0.0039 - val_loss: 0.0059
+total time: 16 minutes 31.39 seconds
+
+	Epoch 13/30
+iou: 0.9966 - val_iou: 0.9940
+dice_coef: 0.9974 - val_dice_coef: 0.9958
+loss: 0.0037 - val_loss: 0.0067
+total time: 17 minutes 33.77 seconds
+
+	Epoch 14/30
+iou: 0.9966 - val_iou: 0.9939
+dice_coef: 0.9975 - val_dice_coef: 0.9959
+loss: 0.0036 - val_loss: 0.0066
+total time: 18 minutes 57.13 seconds
+
+	Epoch 15/30
+iou: 0.9970 - val_iou: 0.9951
+dice_coef: 0.9977 - val_dice_coef: 0.9965
+loss: 0.0033 - val_loss: 0.0055
+total time: 19 minutes 59.65 seconds
+
+	Epoch 16/30
+iou: 0.9970 - val_iou: 0.9950
+dice_coef: 0.9977 - val_dice_coef: 0.9966
+loss: 0.0032 - val_loss: 0.0055
+total time: 21 minutes 21.96 seconds
+
+	Epoch 17/30
+iou: 0.9972 - val_iou: 0.9949
+dice_coef: 0.9979 - val_dice_coef: 0.9965
+loss: 0.0030 - val_loss: 0.0057
+total time: 22 minutes 24.43 seconds
+
+	Epoch 18/30
+iou: 0.9974 - val_iou: 0.9944
+dice_coef: 0.9980 - val_dice_coef: 0.9962
+loss: 0.0029 - val_loss: 0.0061
+total time: 23 minutes 26.46 seconds
+
+	Epoch 19/30
+iou: 0.9975 - val_iou: 0.9946
+dice_coef: 0.9980 - val_dice_coef: 0.9964
+loss: 0.0028 - val_loss: 0.0059
+total time: 24 minutes 28.51 seconds
+
+	Epoch 20/30
+iou: 0.9975 - val_iou: 0.9954
+dice_coef: 0.9981 - val_dice_coef: 0.9968
+loss: 0.0027 - val_loss: 0.0052
+total time: 25 minutes 52.16 seconds
+
+	Epoch 21/30
+iou: 0.9975 - val_iou: 0.9954
+dice_coef: 0.9981 - val_dice_coef: 0.9969
+loss: 0.0027 - val_loss: 0.0051
+total time: 26 minutes 54.45 seconds
+
+	Epoch 22/30
+iou: 0.9976 - val_iou: 0.9954
+dice_coef: 0.9981 - val_dice_coef: 0.9969
+loss: 0.0027 - val_loss: 0.0051
+total time: 27 minutes 56.89 seconds
+
+	Epoch 23/30
+iou: 0.9976 - val_iou: 0.9955
+dice_coef: 0.9981 - val_dice_coef: 0.9969
+loss: 0.0026 - val_loss: 0.0050
+total time: 28 minutes 59.09 seconds
+
+	Epoch 24/30
+iou: 0.9976 - val_iou: 0.9955
+dice_coef: 0.9981 - val_dice_coef: 0.9969
+loss: 0.0026 - val_loss: 0.0050
+total time: 30 minutes 1.35 seconds
+
+	Epoch 25/30
+iou: 0.9976 - val_iou: 0.9955
+dice_coef: 0.9982 - val_dice_coef: 0.9970
+loss: 0.0026 - val_loss: 0.0050
+total time: 31 minutes 23.81 seconds
+
+	Epoch 26/30
+iou: 0.9976 - val_iou: 0.9955
+dice_coef: 0.9982 - val_dice_coef: 0.9970
+loss: 0.0026 - val_loss: 0.0050
+total time: 32 minutes 25.96 seconds
+
+	Epoch 27/30
+iou: 0.9976 - val_iou: 0.9955
+dice_coef: 0.9982 - val_dice_coef: 0.9970
+loss: 0.0026 - val_loss: 0.0050
+total time: 33 minutes 28.54 seconds
+
+	Epoch 28/30
+iou: 0.9976 - val_iou: 0.9955
+dice_coef: 0.9982 - val_dice_coef: 0.9970
+loss: 0.0026 - val_loss: 0.0050
+total time: 34 minutes 30.75 seconds
+
+	Epoch 29/30
+iou: 0.9977 - val_iou: 0.9955
+dice_coef: 0.9982 - val_dice_coef: 0.9970
+loss: 0.0026 - val_loss: 0.0050
+total time: 35 minutes 33.17 seconds
+
+	Epoch 30/30
+iou: 0.9977 - val_iou: 0.9955
+dice_coef: 0.9982 - val_dice_coef: 0.9970
+loss: 0.0026 - val_loss: 0.0050
+total time: 36 minutes 35.85 seconds
+

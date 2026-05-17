@@ -1,0 +1,85 @@
+	Epoch 1/20
+iou: 0.4355 - val_iou: 0.5032
+loss: 0.5661 - val_loss: 4.3303
+total time: 3 minutes 40.83 seconds
+
+	Epoch 2/20
+iou: 0.5182 - val_iou: 0.5364
+loss: 0.4413 - val_loss: 1.6971
+total time: 4 minutes 25.14 seconds
+
+	Epoch 3/20
+iou: 0.5334 - val_iou: 0.5581
+loss: 0.3972 - val_loss: 1.0209
+total time: 5 minutes 47.70 seconds
+
+	Epoch 4/20
+iou: 0.5416 - val_iou: 0.5783
+loss: 0.3701 - val_loss: 0.7275
+total time: 7 minutes 10.82 seconds
+
+	Epoch 5/20
+iou: 0.5573 - val_iou: 0.5887
+loss: 0.3482 - val_loss: 0.6279
+total time: 7 minutes 59.93 seconds
+
+	Epoch 6/20
+iou: 0.5773 - val_iou: 0.5908
+loss: 0.3270 - val_loss: 0.6244
+total time: 9 minutes 17.71 seconds
+
+	Epoch 7/20
+iou: 0.6039 - val_iou: 0.6082
+loss: 0.3046 - val_loss: 0.5310
+total time: 10 minutes 38.69 seconds
+
+	Epoch 8/20
+iou: 0.6351 - val_iou: 0.6044
+loss: 0.2803 - val_loss: 0.5400
+total time: 12 minutes 1.64 seconds
+
+	Epoch 9/20
+iou: 0.6705 - val_iou: 0.6117
+loss: 0.2541 - val_loss: 0.5065
+total time: 13 minutes 24.46 seconds
+
+	Epoch 10/20
+iou: 0.7026 - val_iou: 0.6048
+loss: 0.2303 - val_loss: 0.5459
+total time: 14 minutes 46.53 seconds
+
+	Epoch 11/20
+iou: 0.7289 - val_iou: 0.6236
+loss: 0.2097 - val_loss: 0.4474
+total time: 15 minutes 31.09 seconds
+
+	Epoch 12/20
+iou: 0.7472 - val_iou: 0.6154
+loss: 0.1950 - val_loss: 0.4140
+total time: 16 minutes 52.86 seconds
+
+	Epoch 13/20
+iou: 0.7576 - val_iou: 0.6185
+loss: 0.1867 - val_loss: 0.4202
+total time: 18 minutes 14.42 seconds
+
+	Epoch 14/20
+iou: 0.7631 - val_iou: 0.6211
+loss: 0.1805 - val_loss: 0.4555
+total time: 19 minutes 38.16 seconds
+
+	Epoch 15/20
+iou: 0.7542 - val_iou: 0.6259
+loss: 0.1835 - val_loss: 0.4773
+total time: 21 minutes 3.93 seconds
+
+	Epoch 16/20
+iou: 0.7547 - val_iou: 0.6102
+loss: 0.1848 - val_loss: 0.5279
+total time: 22 minutes 25.50 seconds
+
+	Epoch 17/20
+iou: 0.7727 - val_iou: 0.5859
+loss: 0.1721 - val_loss: 0.4593
+total time: 23 minutes 42.16 seconds
+

@@ -1,0 +1,77 @@
+	Epoch 1/30
+accuracy: 0.9628 - val_accuracy: 1.0000
+precision: 0.9606 - val_precision: 1.0000
+recall: 0.9660 - val_recall: 1.0000
+loss: 0.1359 - val_loss: 0.0543
+total time: 0 minutes 57.55 seconds
+
+	Epoch 2/30
+accuracy: 0.9955 - val_accuracy: 0.9977
+precision: 0.9960 - val_precision: 0.9951
+recall: 0.9951 - val_recall: 1.0000
+loss: 0.0530 - val_loss: 0.0492
+total time: 1 minutes 2.70 seconds
+
+	Epoch 3/30
+accuracy: 0.9980 - val_accuracy: 0.9977
+precision: 0.9976 - val_precision: 0.9951
+recall: 0.9984 - val_recall: 1.0000
+loss: 0.0490 - val_loss: 0.0487
+total time: 1 minutes 8.36 seconds
+
+	Epoch 4/30
+accuracy: 0.9955 - val_accuracy: 0.9954
+precision: 0.9952 - val_precision: 0.9903
+recall: 0.9960 - val_recall: 1.0000
+loss: 0.0540 - val_loss: 0.0531
+total time: 1 minutes 17.71 seconds
+
+	Epoch 5/30
+accuracy: 0.9971 - val_accuracy: 0.9977
+precision: 0.9968 - val_precision: 0.9951
+recall: 0.9976 - val_recall: 1.0000
+loss: 0.0482 - val_loss: 0.0621
+total time: 1 minutes 23.64 seconds
+
+	Epoch 6/30
+accuracy: 0.9988 - val_accuracy: 0.9977
+precision: 0.9984 - val_precision: 0.9951
+recall: 0.9992 - val_recall: 1.0000
+loss: 0.0444 - val_loss: 0.0477
+total time: 1 minutes 28.31 seconds
+
+	Epoch 7/30
+accuracy: 0.9984 - val_accuracy: 0.9977
+precision: 0.9992 - val_precision: 0.9951
+recall: 0.9976 - val_recall: 1.0000
+loss: 0.0448 - val_loss: 0.0555
+total time: 1 minutes 33.23 seconds
+
+	Epoch 8/30
+accuracy: 0.9992 - val_accuracy: 0.9977
+precision: 0.9984 - val_precision: 0.9951
+recall: 1.0000 - val_recall: 1.0000
+loss: 0.0425 - val_loss: 0.0539
+total time: 1 minutes 39.69 seconds
+
+	Epoch 9/30
+accuracy: 1.0000 - val_accuracy: 0.9977
+precision: 1.0000 - val_precision: 0.9951
+recall: 1.0000 - val_recall: 1.0000
+loss: 0.0407 - val_loss: 0.0533
+total time: 1 minutes 44.37 seconds
+
+	Epoch 10/30
+accuracy: 0.9992 - val_accuracy: 0.9977
+precision: 0.9992 - val_precision: 0.9951
+recall: 0.9992 - val_recall: 1.0000
+loss: 0.0409 - val_loss: 0.0495
+total time: 1 minutes 49.68 seconds
+
+	Epoch 11/30
+accuracy: 0.9988 - val_accuracy: 0.9977
+precision: 0.9976 - val_precision: 0.9951
+recall: 1.0000 - val_recall: 1.0000
+loss: 0.0412 - val_loss: 0.0496
+total time: 1 minutes 55.67 seconds
+

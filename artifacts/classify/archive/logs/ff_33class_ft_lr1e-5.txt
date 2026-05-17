@@ -1,0 +1,18 @@
+	Epoch 1/10
+accuracy: 0.9752 - val_accuracy: 0.9786
+f1_score: 0.9724 - val_f1_score: 0.9750
+loss: 0.1757 - val_loss: 0.1560
+total time: 5 minutes 8.70 seconds
+
+	Epoch 2/10
+accuracy: 0.9764 - val_accuracy: 0.9783
+f1_score: 0.9726 - val_f1_score: 0.9747
+loss: 0.1700 - val_loss: 0.1554
+total time: 10 minutes 4.41 seconds
+
+	Epoch 3/10
+accuracy: 0.9748 - val_accuracy: 0.9781
+f1_score: 0.9712 - val_f1_score: 0.9745
+loss: 0.1741 - val_loss: 0.1551
+total time: 14 minutes 59.69 seconds
+
