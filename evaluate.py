@@ -53,8 +53,8 @@ def evaluate_binary_models():
         # 'apple_binary',
         # 'corn_binary',
         # 'grape_binary',
-        'potato_binary',
-        # 'tomato_binary'
+        # 'potato_binary',
+        'tomato_binary'
     ]
 
     _, preprocess_input_function = create_mobile_net_v3_large(image_size)
@@ -158,8 +158,8 @@ def evaluate_categorical_models():
         # 'apple_categorical',
         # 'corn_categorical',
         # 'grape_categorical',
-        'potato_categorical',
-        # 'tomato_categorical'
+        # 'potato_categorical',
+        'tomato_categorical'
     ]
 
     _, preprocess_input_function = create_mobile_net_v3_large(image_size)
@@ -258,5 +258,5 @@ def evaluate_categorical_models():
 
 # predict_single_image(r"dataset\classify\10.jpg", model_name='apple_binary')
 
-# evaluate_binary_models()
-evaluate_categorical_models()
+evaluate_binary_models()
+# evaluate_categorical_models()
