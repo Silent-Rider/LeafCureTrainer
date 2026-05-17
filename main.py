@@ -38,7 +38,7 @@ def main():
         epochs,
         model_name=model_name,
         export_format='keras',
-        checkpoints=True,
+        checkpoints=False,
         logging=True,
         reduce_on_plateau=True,
         early_stopping=True
