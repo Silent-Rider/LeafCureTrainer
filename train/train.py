@@ -70,7 +70,7 @@ def get_callbacks(checkpoints: bool,
                               factor=0.5,
                               verbose=1,
                               mode=mode,
-                              patience=2,
+                              patience=3,
                               min_delta=1e-4,
                               min_lr=1e-7)
         )
@@ -79,7 +79,7 @@ def get_callbacks(checkpoints: bool,
             EarlyStopping(monitor=monitor,
                           verbose=1,
                           mode=mode,
-                          patience=5,
+                          patience=7,
                           restore_best_weights=True)
         )
 
