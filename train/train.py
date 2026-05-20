@@ -2,14 +2,13 @@ from pathlib import Path
 
 from keras import Model
 from keras.src.callbacks import ModelCheckpoint, CSVLogger, ReduceLROnPlateau, EarlyStopping
-import tensorflow as tf
 
 from config import TASK_NAME
+from model.save import save_model
 from train.log_callback import LogCallback
 
-MODELS_FOLDER = f'artifacts/{TASK_NAME}/models'
-CHECKPOINTS_FOLDER = f'artifacts/{TASK_NAME}/checkpoints'
 
+CHECKPOINTS_FOLDER = f'artifacts/{TASK_NAME}/checkpoints'
 
 def fit_and_save_model(model: Model,
                        train_dataset,
@@ -30,14 +29,10 @@ def fit_and_save_model(model: Model,
                         callbacks=callbacks,
                         initial_epoch=initial_epoch)
 
-    match export_format:
-        case 'keras':
-            model.save(f'{MODELS_FOLDER}/{model_name}.keras')
-        case 'tflite':
-            converter = tf.lite.TFLiteConverter.from_keras_model(model)
-            tflite_model = converter.convert()
-            with open(f'{MODELS_FOLDER}/{model_name}.tflite', 'wb') as f:
-                f.write(tflite_model)
+    save_model(model=model,
+               model_name=model_name,
+               export_format=export_format,
+               task_name=TASK_NAME)
 
     return history.history
 

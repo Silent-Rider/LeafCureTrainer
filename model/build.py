@@ -171,7 +171,7 @@ def bce_dice_loss(y_true, y_pred):
 
 
 @keras.saving.register_keras_serializable()
-def tversky_loss(y_true, y_pred, ):
+def tversky_loss(y_true, y_pred):
     alpha = 0.7
     beta = 0.3
 
