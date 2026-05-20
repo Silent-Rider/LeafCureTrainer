@@ -62,8 +62,6 @@ def augment_dataset(should_create_mask: bool,
     else:
         print(f"Цель: Создать {len(image_files) * aug_factor} новых фото (без масок).")
 
-    print(f"Оригиналы остаются в {src_images_dir} для ТЕСТИРОВАНИЯ.")
-
     total_generated = 0
 
     for filename in tqdm(image_files, desc="Аугментация"):
@@ -76,12 +74,11 @@ def augment_dataset(should_create_mask: bool,
             print(f"❌ Ошибка чтения изображения: {filename}")
             continue
 
+        mask = None
         if should_create_mask:
             src_mask_filename = f"{name}.png"
             src_mask_path = os.path.join(src_masks_dir, src_mask_filename)
 
-        if should_create_mask:
-            mask = None
             if not os.path.exists(src_mask_path):
                 print(f"⚠️ Пропуск {filename}: нет соответствующей маски {src_mask_filename}")
                 continue
@@ -96,6 +93,7 @@ def augment_dataset(should_create_mask: bool,
 
         for i in range(aug_factor):
             try:
+                aug_mask = None
                 if should_create_mask:
                     augmented = transform(image=image_rgb, mask=mask)
                     aug_image_rgb = augmented['image']

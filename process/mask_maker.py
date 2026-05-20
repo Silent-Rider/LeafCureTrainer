@@ -4,12 +4,6 @@ from pathlib import Path
 import random
 from tqdm import tqdm
 
-"""
-Создаёт бинарную маску из изображения с листом на чёрном фоне.
-Пиксели != [0,0,0] считаются частью листа.
-"""
-
-
 def create_binary_mask_from_black_bg(image_path: Path, mask_output_path: Path, threshold: int = 5) -> bool:
     img = cv2.imread(str(image_path))
     if img is None:
@@ -57,7 +51,7 @@ def process_dataset(input_dir: Path, output_mask_dir: Path):
 
 def blend_leaf_on_background(leaf_path: Path, mask_path: Path, bg_path: Path, output_path: Path):
     leaf = cv2.imread(str(leaf_path))
-    mask = cv2.imread(str(mask_path), cv2.IMREAD_GRAYSCALE)  # одноканальная
+    mask = cv2.imread(str(mask_path), cv2.IMREAD_GRAYSCALE)
     bg = cv2.imread(str(bg_path))
 
     if leaf is None or mask is None or bg is None:
@@ -65,14 +59,11 @@ def blend_leaf_on_background(leaf_path: Path, mask_path: Path, bg_path: Path, ou
 
     h, w = leaf.shape[:2]
 
-    # Масштабирование фон под размер листа
     bg_resized = cv2.resize(bg, (w, h), interpolation=cv2.INTER_CUBIC)
 
-    # Нормализация маски: 0–1
     mask_norm = mask.astype(np.float32) / 255.0
-    mask_norm = np.stack([mask_norm] * 3, axis=-1)  # (H, W) → (H, W, 3)
+    mask_norm = np.stack([mask_norm] * 3, axis=-1)
 
-    # Композиция: leaf * mask + bg * (1 - mask)
     composite = leaf * mask_norm + bg_resized * (1 - mask_norm)
     composite = composite.astype(np.uint8)
 
@@ -87,12 +78,10 @@ def generate_composites(
 ):
     output_dir.mkdir(parents=True, exist_ok=True)
 
-    # Собираем все фоны
     bg_files = [f for f in backgrounds_dir.iterdir() if f.is_file() and f.suffix.lower() in {".png", ".jpg", ".jpeg"}]
     if not bg_files:
         raise ValueError("Нет фоновых изображений!")
 
-    # Сортируем листья и маски по номеру
     leaf_files = sorted(
         [f for f in leaves_dir.iterdir() if f.is_file()],
         key=lambda x: int(x.stem)

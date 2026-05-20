@@ -10,11 +10,8 @@ from tqdm import tqdm
 from model.load import load_fitted_model
 
 IMG_SIZE = (256, 256)
-THRESHOLD = 0.5
-
 
 def load_image(image_path: str, image_size: tuple, preprocess_input_function):
-    """Загрузка и предобработка изображения для модели."""
     image = tf.io.read_file(image_path)
     image = tf.image.decode_image(image, channels=3)
     image = tf.image.resize(image, image_size)
@@ -24,28 +21,20 @@ def load_image(image_path: str, image_size: tuple, preprocess_input_function):
 
 
 def predict_mask(image_path: Path, model) -> np.ndarray:
-    """
-    Предсказывает маску для одного изображения.
-    Возвращает бинарную маску (numpy array) в исходном разрешении изображения.
-    """
     original_img = Image.open(image_path).convert('RGB')
     orig_w, orig_h = original_img.size
 
-    # Инференс
     input_tensor = load_image(str(image_path), IMG_SIZE, preprocess_input)
     input_tensor = tf.expand_dims(input_tensor, 0)
     pred = model.predict(input_tensor, verbose=0)[0]
 
-    # Обработка выхода модели
     if len(pred.shape) == 3:
         mask_pred = pred[:, :, 0]
     else:
         mask_pred = pred
 
-    # Бинаризация
-    binary_mask = (mask_pred > THRESHOLD).astype(np.float32)
+    binary_mask = (mask_pred > 0.5).astype(np.float32)
 
-    # Масштабирование маски до оригинального размера
     mask_pil = Image.fromarray((binary_mask * 255).astype(np.uint8))
     full_size_mask = mask_pil.resize((orig_w, orig_h), resample=Image.Resampling.BILINEAR)
 
@@ -61,11 +50,10 @@ def generate_masks_batch(model, input_dir: Path, output_dir: Path):
         root_path = Path(root)
         rel_path = root_path.relative_to(input_dir)
 
-        for file in files: # file is str
+        for file in files:
             if file.lower().endswith(('.png', '.jpg', '.jpeg', '.bmp')):
                 src_file = root_path / file
 
-                # Корректная работа с расширением через Path
                 file_obj = Path(file)
                 new_filename = file_obj.stem + '.png'
 
@@ -88,7 +76,6 @@ def generate_masks_batch(model, input_dir: Path, output_dir: Path):
             success_count += 1
         except Exception as e:
             error_count += 1
-            # src_file уже Path, поэтому .name работает
             tqdm.write(f"Ошибка генерации маски {src_file.name}: {e}")
 
     print(f"-> Маски готовы. Успешно: {success_count}, Ошибок: {error_count}")
@@ -180,14 +167,12 @@ def main():
     BASE_INPUT_DIR = Path(r"dataset\classify\binary\tomato_binary\new_healthy")
     BASE_OUTPUT_DIR = Path(r"dataset\classify\binary\tomato_binary\new_healthy_masked")
     MASK_OUTPUT_DIR = Path(r"dataset\classify\binary\tomato_binary\new_healthy_masks")
-    # RESIZED_OUTPUT_DIR = Path('dataset/segment/spot/leaf_masks_resized')
     MODEL_NAME = 'leaf_seg_final'
 
     print("=" * 40)
     print("ЗАПУСК ПЛАЙНЛАЙНА ОБРАБОТКИ (2 ЭТАПА)")
     print("=" * 40)
 
-    # Загрузка модели (нужна только для 1 этапа)
     print("Инициализация модели...")
     try:
         model = load_fitted_model(MODEL_NAME, "segment")
@@ -196,10 +181,7 @@ def main():
         print(f"Критическая ошибка загрузки модели: {e}")
         return
 
-    # --- ЭТАП 1: ГЕНЕРАЦИЯ МАСОК ---
     generate_masks_batch(model, BASE_INPUT_DIR, MASK_OUTPUT_DIR)
-
-    # --- ЭТАП 2: ПРИМЕНЕНИЕ МАСОК ---
     apply_masks_batch(BASE_INPUT_DIR, MASK_OUTPUT_DIR, BASE_OUTPUT_DIR)
 
     print("\n" + "=" * 40)

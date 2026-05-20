@@ -1,59 +1,22 @@
 from pathlib import Path
 
 import numpy as np
-from PIL import Image
 from sklearn.metrics import classification_report
 
 from config import TASK_NAME
-from model.build import create_mobile_net_v3_large
+from model.build import create_mobile_net_v3_large, create_efficient_net_v2_b2
 from model.load import load_fitted_model
 from process.data_gen import get_image_paths_and_labels, get_classification_test_dataset, CLASS_INDICES_FOLDER
-
-
-def predict_single_image(image_path: str, model_name: str = 'apple_binary'):
-    image_size = (256, 256)
-    _, preprocess_input = create_mobile_net_v3_large(image_size)
-    model = load_fitted_model(model_name)
-
-    img_path = Path(image_path)
-    if not img_path.exists():
-        print(f"❌ Файл не найден: {image_path}")
-        return
-
-    img = Image.open(img_path).convert('RGB')
-    img_resized = img.resize(image_size)
-
-    img_array = np.array(img_resized)
-
-    img_batch = np.expand_dims(img_array, axis=0)
-    img_preprocessed = preprocess_input(img_batch)
-
-    prediction = model.predict(img_preprocessed, verbose=0)
-
-    prob_healthy = prediction[0][0] if prediction.ndim > 1 else prediction[0]
-
-    predicted_class = "HEALTHY" if prob_healthy > 0.5 else "DISEASED"
-    confidence = prob_healthy if prob_healthy > 0.5 else (1 - prob_healthy)
-
-    print(f"📄 Файл: {img_path.name}")
-    print(f"🔮 Предсказание: {predicted_class}")
-    print(f"📊 Вероятность Healthy: {prob_healthy:.4f}")
-    print(f"💪 Уверенность модели: {confidence * 100:.2f}%")
-
-    if prob_healthy > 0.5:
-        print(f"   -> Вероятность Disease: {1 - prob_healthy:.4f}")
-    else:
-        print(f"   -> Вероятность Disease: {1 - prob_healthy:.4f}")
 
 
 def evaluate_binary_models():
     image_size = (256, 256)
 
     model_names = [
-        # 'apple_binary',
-        # 'corn_binary',
-        # 'grape_binary',
-        # 'potato_binary',
+        'apple_binary',
+        'corn_binary',
+        'grape_binary',
+        'potato_binary',
         'tomato_binary'
     ]
 
@@ -155,14 +118,14 @@ def evaluate_categorical_models():
     batch_size = 32
 
     model_names = [
-        # 'apple_categorical',
-        # 'corn_categorical',
-        # 'grape_categorical',
-        # 'potato_categorical',
+        'apple_categorical',
+        'corn_categorical',
+        'grape_categorical',
+        'potato_categorical',
         'tomato_categorical'
     ]
 
-    _, preprocess_input_function = create_mobile_net_v3_large(image_size)
+    _, preprocess_input_function = create_efficient_net_v2_b2(image_size)
 
     for model_name in model_names:
         print(f'\n{"=" * 60}')
@@ -253,10 +216,3 @@ def evaluate_categorical_models():
             print(f'\n✅ NO ERRORS! Perfect classification!\n')
 
         print(f'{"=" * 60}\n')
-
-# evaluate_model_detailed()
-
-# predict_single_image(r"dataset\classify\10.jpg", model_name='apple_binary')
-
-evaluate_binary_models()
-# evaluate_categorical_models()
