@@ -42,5 +42,4 @@ def main():
     )
     draw_subplots(history, model_name)
 
-if __name__ == "__main__":
-    main()
+main()
