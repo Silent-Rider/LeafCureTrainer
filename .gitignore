@@ -31,3 +31,5 @@ render.experimental.xml
 
 dataset/
 __pycache__/
+data/
+results/

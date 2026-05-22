@@ -126,9 +126,3 @@ def augment_dataset(should_create_mask: bool,
         print(f"📂 Маски: {aug_masks_dir}")
     else:
         print(f"⚠️ Маски не создавались.")
-
-
-augment_dataset(should_create_mask=False,
-                src_images_dir=r"dataset\classify\binary\tomato_binary\new_healthy",
-                aug_images_dir=r"dataset\classify\binary\tomato_binary\new_healthy_aug",
-                aug_factor=6)

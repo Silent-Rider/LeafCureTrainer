@@ -1,4 +1,4 @@
-TASK_NAME = 'classify'
-CLASSIFY_TYPE = 'categorical'
+TASK_NAME = 'segment'
 IMAGE_SIZE = (256, 256)
-EPOCHS = 30
+BATCH_SIZE = 32
+EPOCHS = 15

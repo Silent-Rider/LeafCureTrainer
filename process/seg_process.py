@@ -163,31 +163,24 @@ def apply_masks_batch(original_dir: Path, mask_dir: Path, result_dir: Path):
     return success_count
 
 
-def main():
-    BASE_INPUT_DIR = Path(r"dataset\classify\binary\tomato_binary\new_healthy")
-    BASE_OUTPUT_DIR = Path(r"dataset\classify\binary\tomato_binary\new_healthy_masked")
-    MASK_OUTPUT_DIR = Path(r"dataset\classify\binary\tomato_binary\new_healthy_masks")
-    MODEL_NAME = 'leaf_seg_final'
-
+def run(base_input_dir: Path, base_output_dir: Path, mask_output_dir: Path, model_name: str):
     print("=" * 40)
     print("ЗАПУСК ПЛАЙНЛАЙНА ОБРАБОТКИ (2 ЭТАПА)")
     print("=" * 40)
 
     print("Инициализация модели...")
     try:
-        model = load_fitted_model(MODEL_NAME, "segment")
+        model = load_fitted_model(model_name, "segment")
         print("Модель загружена успешно.\n")
     except Exception as e:
         print(f"Критическая ошибка загрузки модели: {e}")
         return
 
-    generate_masks_batch(model, BASE_INPUT_DIR, MASK_OUTPUT_DIR)
-    apply_masks_batch(BASE_INPUT_DIR, MASK_OUTPUT_DIR, BASE_OUTPUT_DIR)
+    generate_masks_batch(model, base_input_dir, mask_output_dir)
+    apply_masks_batch(base_input_dir, mask_output_dir, base_output_dir)
 
     print("\n" + "=" * 40)
     print("ВСЕ ЭТАПЫ ЗАВЕРШЕНЫ")
-    print(f"Маски сохранены в: {MASK_OUTPUT_DIR.resolve()}")
-    print(f"Финальные результаты в: {BASE_OUTPUT_DIR.resolve()}")
+    print(f"Маски сохранены в: {mask_output_dir.resolve()}")
+    print(f"Финальные результаты в: {base_output_dir.resolve()}")
     print("=" * 40)
-
-main()
