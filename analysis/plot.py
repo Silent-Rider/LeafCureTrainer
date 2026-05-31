@@ -66,7 +66,7 @@ def prepare_plot_colored(train_data, val_data, title:str, ylabel:str):
     plt.grid(True)
 
 
-def prepare_plot_black_and_white(train_data, val_data, title: str, ylabel: str):
+def prepare_plot_black_and_white(train_data, val_data, ylabel: str):
     epochs_iter = list(range(1, len(train_data) + 1))
     plt.plot(epochs_iter, train_data, label='Обучающая выборка', linestyle='-', color='black', linewidth=2)
     plt.plot(epochs_iter, val_data, label='Валидационная выборка', linestyle='--', color='black', linewidth=2)

@@ -12,8 +12,6 @@ def setup_directories(should_create_mask: bool, aug_images_dir: str, aug_masks_d
     if should_create_mask:
         if not Path(aug_masks_dir).exists():
             Path(aug_masks_dir).mkdir(parents=True, exist_ok=True)
-    else:
-        print(f"⚠️ SHOULD_CREATE_MASK=False. Папка масок {aug_masks_dir} игнорируется.")
 
 
 def get_augmentation_transform():
@@ -55,7 +53,6 @@ def augment_dataset(should_create_mask: bool,
     image_files = [f for f in os.listdir(src_images_dir) if f.lower().endswith(valid_extensions)]
 
     print(f"Найдено {len(image_files)} исходных фото для аугментации.")
-    print(f"Параметр SHOULD_CREATE_MASK: {should_create_mask}")
 
     if should_create_mask:
         print(f"Цель: Создать {len(image_files) * aug_factor} новых пар (фото + маска).")
@@ -119,16 +116,5 @@ def augment_dataset(should_create_mask: bool,
             except Exception as e:
                 print(f"⚠️ Ошибка при аугментации {filename} (variant {i}): {e}")
 
-    print(f"\n✅ ГОТОВО!")
-    print(f"Сгенерировано {total_generated} примеров.")
-    print(f"📂 Изображения: {aug_images_dir}")
-    if should_create_mask:
-        print(f"📂 Маски: {aug_masks_dir}")
-    else:
-        print(f"⚠️ Маски не создавались.")
-
-
-augment_dataset(should_create_mask=False,
-                src_images_dir=r"dataset\classify\binary\tomato_binary\new_healthy",
-                aug_images_dir=r"dataset\classify\binary\tomato_binary\new_healthy_aug",
-                aug_factor=6)
+    print(f"\n✅ Готово!")
+    print(f"Сгенерировано {total_generated} примеров")

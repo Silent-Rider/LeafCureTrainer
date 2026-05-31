@@ -1,63 +1,35 @@
 from pathlib import Path
+from typing import Tuple, Optional
 
 import numpy as np
+from keras.src.applications.efficientnet_v2 import preprocess_input as efficientnet_preprocess
+from keras.src.applications.mobilenet_v3 import preprocess_input as mobilenet_preprocess
 from sklearn.metrics import classification_report
 
-from config import TASK_NAME
-from model.build import create_mobile_net_v3_large, create_efficient_net_v2_b2
+from config import TASK_NAME, BATCH_SIZE, IMAGE_SIZE, PLANTS
 from model.load import load_fitted_model
 from process.data_gen import get_image_paths_and_labels, get_classification_test_dataset, CLASS_INDICES_FOLDER
 
 
-def evaluate_binary_models():
-    image_size = (256, 256)
-
-    model_names = [
-        'apple_binary',
-        'corn_binary',
-        'grape_binary',
-        'potato_binary',
-        'tomato_binary'
-    ]
-
-    _, preprocess_input_function = create_mobile_net_v3_large(image_size)
-
-    for plant in model_names:
+def evaluate_binary_models(plants: set[str] = PLANTS):
+    if not set(plants) <= set(PLANTS):
+        print('Указаны неподдерживаемые растения')
+        return
+    models = {p + "_binary" for p in plants}
+    for model in models:
         print(f'\n{"=" * 60}')
-        print(f'🍏 EVALUATION: {plant.upper()}')
+        print(f'Оценка: {model.upper()}')
         print(f'{"=" * 60}\n')
-        try:
-            model = load_fitted_model(plant)
-            print(f'{plant} model is loaded')
-        except Exception as e:
-            print(f"ERROR loading model {plant}: {e}")
+
+        result = prepare_evaluation_data(model, 'binary_test',is_categorical=False)
+        if not result:
             continue
 
-        test_dir = f'dataset/{TASK_NAME}/binary_test/{plant}'
+        model, image_paths, true_labels_np, test_dataset, _ = result
 
-        try:
-            image_paths, true_labels_list = get_image_paths_and_labels(test_dir)
-        except Exception as e:
-            print(f"ERROR reading directory {test_dir}: {e}")
-            continue
-
-        if not image_paths:
-            print(f"No images found in {test_dir}")
-            continue
-
-        true_labels_np = np.array(true_labels_list)
-
-        test_dataset = get_classification_test_dataset(
-            image_dir=test_dir,
-            image_size=image_size,
-            preprocess_input_function=preprocess_input_function,
-            batch_size=32
-        )
         predictions = model.predict(test_dataset, verbose=0)
 
-        if predictions.ndim > 1 and predictions.shape[1] == 1:
-            pred_probs = predictions.flatten()
-        elif predictions.ndim > 1 and predictions.shape[1] == 2:
+        if predictions.ndim > 1 and predictions.shape[1] == 2:
             pred_probs = predictions[:, 1]
         else:
             pred_probs = predictions.flatten()
@@ -74,107 +46,54 @@ def evaluate_binary_models():
         disease_total = np.sum(true_labels_np == 0)
         disease_correct = np.sum((pred_classes == 0) & (true_labels_np == 0))
 
-        print(f'📊 SUMMARY')
-        print(f'Accuracy: {correct}/{total} ({accuracy:.2f}%)')
-        print(f'Healthy (Class 1): {healthy_correct}/{healthy_total} correctly predicted')
-        print(f'Diseased (Class 0): {disease_correct}/{disease_total} correctly predicted')
-        print(f'\n📋 DETAILED PREDICTIONS:\n')
+        print('Сводка')
+        print(f'Точность: {correct}/{total} ({accuracy:.2f}%)')
+        print(f'Здоровые (Class 1): {healthy_correct}/{healthy_total} верно предсказаны')
+        print(f'Больные (Class 0): {disease_correct}/{disease_total} верно предсказаны')
+        print(f'\nДетальные предсказания:\n')
 
-        for i, (fpath, true_label, pred_class, prob) in enumerate(
-                zip(image_paths, true_labels_np, pred_classes, pred_probs)
-        ):
+        errors = []
+        for fpath, true_label, pred_class, prob in zip(image_paths, true_labels_np, pred_classes, pred_probs):
             file_name = Path(fpath).name
-
-            true_str = 'HEALTHY' if true_label == 1 else 'DISEASED'
-            pred_str = 'HEALTHY' if pred_class == 1 else 'DISEASED'
-            status = '✅' if true_label == pred_class else '❌'
+            true_str = 'ЗДОРОВ' if true_label == 1 else 'БОЛЕН'
+            pred_str = 'ЗДОРОВ' if pred_class == 1 else 'БОЛЕН'
+            status = 'ОК' if true_label == pred_class else 'ОШИБКА'
 
             print(f'{status} {file_name}')
-            print(f'   True: {true_str} | Pred: {pred_str} | Prob(healthy): {prob:.4f}')
+            print(f'Истинное: {true_str} | Предсказанное: {pred_str} | Вероятность(здоров): {prob:.4f}')
 
             if true_label != pred_class:
-                print(f'   ⚠️  MISCLASSIFIED!')
+                print(f'Неправильно классифицировано!')
+                errors.append((fpath, true_label, pred_class, prob))
             print()
 
-        errors = [(f, t, p, pr) for f, t, p, pr
-                  in zip(image_paths, true_labels_np, pred_classes, pred_probs)
-                  if t != p]
-
         if errors:
-            print(f'\n⚠️  TOTAL ERRORS: {len(errors)}/{total}\n')
+            print(f'\nОбщее количество ошибок: {len(errors)}/{total}\n')
             false_healthy = sum(1 for _, t, p, _ in errors if t == 1 and p == 0)
             false_diseased = sum(1 for _, t, p, _ in errors if t == 0 and p == 1)
-
-            print(f'  Healthy misclassified as Diseased: {false_healthy}')
-            print(f'  Diseased misclassified as Healthy: {false_diseased}')
+            print(f'  Здоровые ложно классифицированные как Больные: {false_healthy}')
+            print(f'  Больные ложно классифицированные как Здоровые: {false_diseased}')
         else:
-            print(f'\n✅ NO ERRORS! Perfect classification!\n')
+            print('\nОшибок нет. Идеальная классификация\n')
 
         print(f'{"=" * 60}\n')
 
 
-def evaluate_categorical_models():
-    image_size = (256, 256)
-    batch_size = 32
-
-    model_names = [
-        'apple_categorical',
-        'corn_categorical',
-        'grape_categorical',
-        'potato_categorical',
-        'tomato_categorical'
-    ]
-
-    _, preprocess_input_function = create_efficient_net_v2_b2(image_size)
-
-    for model_name in model_names:
+def evaluate_categorical_models(plants: set[str] = PLANTS):
+    if not set(plants) <= set(PLANTS):
+        print('Указаны неподдерживаемые растения')
+        return
+    models = {p + "_categorical" for p in plants}
+    for model_name in models:
         print(f'\n{"=" * 60}')
-        print(f'🍏 EVALUATION: {model_name.upper()}')
+        print(f'Оценка: {model_name.upper()}')
         print(f'{"=" * 60}\n')
 
-        try:
-            model = load_fitted_model(model_name)
-            print(f'{model_name} model is loaded')
-        except Exception as e:
-            print(f"ERROR loading model {model_name}: {e}")
+        result = prepare_evaluation_data(model_name, 'categorical_test', is_categorical=True)
+        if not result:
             continue
 
-        test_dir = f'dataset/{TASK_NAME}/categorical_test/{model_name}'
-        try:
-            image_paths, true_labels_list = get_image_paths_and_labels(test_dir)
-        except Exception as e:
-            print(f"ERROR reading directory {test_dir}: {e}")
-            continue
-
-        if not image_paths:
-            print(f"No images found in {test_dir}")
-            continue
-
-        true_labels_np = np.array(true_labels_list)
-        indices_file = Path(CLASS_INDICES_FOLDER) / f'{model_name}.txt'
-        class_names_map = {}
-
-        if indices_file.exists():
-            with open(indices_file, 'r') as f:
-                for line in f:
-                    line = line.strip()
-                    if ':' in line:
-                        idx_str, name = line.split(':', 1)
-                        class_names_map[int(idx_str)] = name.strip()
-        else:
-            print("WARNING: Class indices file not found. Using folder order.")
-            classes = sorted([d.name for d in Path(test_dir).iterdir() if d.is_dir()])
-            class_names_map = {i: c for i, c in enumerate(classes)}
-
-        num_classes = len(class_names_map)
-        target_names = [class_names_map[i] for i in range(num_classes)]
-
-        test_dataset = get_classification_test_dataset(
-            image_dir=test_dir,
-            image_size=image_size,
-            preprocess_input_function=preprocess_input_function,
-            batch_size=batch_size
-        )
+        model, image_paths, true_labels_np, test_dataset, target_names = result
 
         predictions = model.predict(test_dataset, verbose=0)
         pred_classes = np.argmax(predictions, axis=1)
@@ -182,11 +101,11 @@ def evaluate_categorical_models():
 
         accuracy = np.sum(pred_classes == true_labels_np) / len(true_labels_np) * 100
 
-        print(f'📊 SUMMARY')
-        print(f'Global Accuracy: {accuracy:.2f}%')
-        print(f'Total samples: {len(true_labels_np)}')
+        print('Сводка')
+        print(f'Глобальная точность: {accuracy:.2f}%')
+        print(f'Общее количество примеров: {len(true_labels_np)}')
 
-        print(f'\n📋 CLASSIFICATION REPORT:\n')
+        print(f'\nОтчет о классификации:\n')
         report = classification_report(
             true_labels_np,
             pred_classes,
@@ -198,8 +117,8 @@ def evaluate_categorical_models():
         errors_idx = np.where(pred_classes != true_labels_np)[0]
 
         if len(errors_idx) > 0:
-            print(f'\n⚠️  TOTAL ERRORS: {len(errors_idx)}/{len(true_labels_np)}\n')
-            print('Sample of misclassified images:')
+            print(f'\nОбщее количество ошибок: {len(errors_idx)}/{len(true_labels_np)}\n')
+            print('Примеры неправильно классифицированных изображений:')
 
             for i in errors_idx[:10]:
                 fpath = image_paths[i]
@@ -207,12 +126,63 @@ def evaluate_categorical_models():
                 pred_lbl = pred_classes[i]
                 conf = pred_probs_max[i]
 
-                true_name = class_names_map.get(true_lbl, f'Class_{true_lbl}')
-                pred_name = class_names_map.get(pred_lbl, f'Class_{pred_lbl}')
+                true_name = target_names[true_lbl] if true_lbl < len(target_names) else f'Class_{true_lbl}'
+                pred_name = target_names[pred_lbl] if pred_lbl < len(target_names) else f'Class_{pred_lbl}'
 
-                print(f'❌ {Path(fpath).name}')
-                print(f'   True: {true_name} | Pred: {pred_name} | Conf: {conf:.4f}')
+                print(f'Ошибка {Path(fpath).name}')
+                print(f'Истинное: {true_name} | Предсказанное: {pred_name} | Уверенность: {conf:.4f}')
         else:
-            print(f'\n✅ NO ERRORS! Perfect classification!\n')
+            print('\nОшибок нет. Идеальная классификация\n')
 
         print(f'{"=" * 60}\n')
+
+
+def load_class_names(model_name: str, test_dir: str) -> list[str]:
+    indices_file = Path(CLASS_INDICES_FOLDER) / f'{model_name}.txt'
+    class_map = {}
+
+    if indices_file.exists():
+        with open(indices_file, 'r') as f:
+            for line in f:
+                line = line.strip()
+                if ':' in line:
+                    idx_str, name = line.split(':', 1)
+                    class_map[int(idx_str)] = name.strip()
+    else:
+        classes = sorted([d.name for d in Path(test_dir).iterdir() if d.is_dir()])
+        class_map = {i: c for i, c in enumerate(classes)}
+
+    num_classes = len(class_map)
+    return [class_map[i] for i in range(num_classes)]
+
+
+def prepare_evaluation_data(model_name: str,
+                            test_dir_suffix: str,
+                            is_categorical: bool = False) -> Optional[Tuple]:
+    preprocess_function = efficientnet_preprocess if model_name == 'tomato_categorical' else mobilenet_preprocess
+    model = load_fitted_model(model_name, 'classify')
+    test_dir = f'dataset/{TASK_NAME}/{test_dir_suffix}/{model_name}'
+
+    try:
+        image_paths, true_labels_list = get_image_paths_and_labels(test_dir)
+    except Exception as e:
+        print(f"Ошибка во время чтения директории {test_dir}: {e}")
+        return None
+
+    if not image_paths:
+        print(f"Не найдено изображений в {test_dir}")
+        return None
+
+    true_labels = np.array(true_labels_list)
+    test_dataset = get_classification_test_dataset(
+        image_dir=test_dir,
+        image_size=IMAGE_SIZE,
+        preprocess_input_function=preprocess_function,
+        batch_size=BATCH_SIZE
+    )
+
+    target_names = None
+    if is_categorical:
+        target_names = load_class_names(model_name, test_dir)
+
+    return model, image_paths, true_labels, test_dataset, target_names

@@ -12,8 +12,10 @@ class LogCallback(Callback):
         super().__init__()
         self.file_name = file_name
 
+
     def on_train_begin(self, logs=None):
         self.train_start_time = time.time()
+
 
     def on_epoch_end(self, epoch, logs=None):
         elapsed_total = time.time() - self.train_start_time
