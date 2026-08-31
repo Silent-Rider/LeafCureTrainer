@@ -12,9 +12,10 @@ from process.data_gen import get_image_paths_and_labels, get_classification_test
 
 
 def evaluate_binary_models(plants: set[str] = PLANTS):
-    if not set(plants) <= set(PLANTS):
-        print('Указаны неподдерживаемые растения')
-        return
+    for plant in plants:
+        if plant not in PLANTS:
+            print(f'Указано неподдерживаемое растение: {plant}')
+            return
     models = {p + "_binary" for p in plants}
     for model in models:
         print(f'\n{"=" * 60}')
@@ -80,9 +81,10 @@ def evaluate_binary_models(plants: set[str] = PLANTS):
 
 
 def evaluate_categorical_models(plants: set[str] = PLANTS):
-    if not set(plants) <= set(PLANTS):
-        print('Указаны неподдерживаемые растения')
-        return
+    for plant in plants:
+        if plant not in PLANTS:
+            print(f'Указано неподдерживаемое растение: {plant}')
+            return
     models = {p + "_categorical" for p in plants}
     for model_name in models:
         print(f'\n{"=" * 60}')
