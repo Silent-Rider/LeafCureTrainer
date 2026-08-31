@@ -3,4 +3,5 @@
 2. Corn — Кукуруза ✓
 3. Grape — Виноград ✓
 4. Potato — Картофель ✓
-5. Tomato — Томат ✓
+5. Strawberry - Земляника ✓
+6. Tomato — Томат ✓
