@@ -75,3 +75,73 @@ recall: 0.9986 - val_recall: 0.9960
 loss: 0.0502 - val_loss: 0.0645
 total time: 2 minutes 10.80 seconds
 
+	Epoch 1/30
+accuracy: 0.8906 - val_accuracy: 0.9433
+precision: 0.8780 - val_precision: 0.9730
+recall: 0.9051 - val_recall: 0.9172
+loss: 0.2891 - val_loss: 0.1882
+total time: 1 minutes 4.91 seconds
+
+	Epoch 2/30
+accuracy: 0.9794 - val_accuracy: 0.9800
+precision: 0.9821 - val_precision: 0.9809
+recall: 0.9763 - val_recall: 0.9809
+loss: 0.1075 - val_loss: 0.1215
+total time: 1 minutes 8.78 seconds
+
+	Epoch 3/30
+accuracy: 0.9859 - val_accuracy: 0.9867
+precision: 0.9801 - val_precision: 0.9811
+recall: 0.9917 - val_recall: 0.9936
+loss: 0.0850 - val_loss: 0.0892
+total time: 1 minutes 13.87 seconds
+
+	Epoch 4/30
+accuracy: 0.9924 - val_accuracy: 0.9833
+precision: 0.9905 - val_precision: 0.9872
+recall: 0.9941 - val_recall: 0.9809
+loss: 0.0744 - val_loss: 0.0818
+total time: 1 minutes 17.20 seconds
+
+	Epoch 5/30
+accuracy: 0.9918 - val_accuracy: 0.9833
+precision: 0.9905 - val_precision: 0.9750
+recall: 0.9929 - val_recall: 0.9936
+loss: 0.0670 - val_loss: 0.0805
+total time: 1 minutes 20.64 seconds
+
+	Epoch 6/30
+accuracy: 0.9929 - val_accuracy: 0.9833
+precision: 0.9941 - val_precision: 0.9691
+recall: 0.9917 - val_recall: 1.0000
+loss: 0.0651 - val_loss: 0.1033
+total time: 1 minutes 25.62 seconds
+
+	Epoch 7/30
+accuracy: 0.9900 - val_accuracy: 0.9767
+precision: 0.9882 - val_precision: 0.9747
+recall: 0.9917 - val_recall: 0.9809
+loss: 0.0777 - val_loss: 0.0918
+total time: 1 minutes 28.94 seconds
+
+	Epoch 8/30
+accuracy: 0.9929 - val_accuracy: 0.9833
+precision: 0.9917 - val_precision: 0.9691
+recall: 0.9941 - val_recall: 1.0000
+loss: 0.0621 - val_loss: 0.1119
+total time: 1 minutes 32.18 seconds
+
+	Epoch 9/30
+accuracy: 0.9947 - val_accuracy: 0.9700
+precision: 0.9976 - val_precision: 0.9512
+recall: 0.9917 - val_recall: 0.9936
+loss: 0.0610 - val_loss: 0.1104
+total time: 1 minutes 35.39 seconds
+
+	Epoch 10/30
+accuracy: 0.9947 - val_accuracy: 0.9800
+precision: 0.9952 - val_precision: 0.9689
+recall: 0.9941 - val_recall: 0.9936
+loss: 0.0574 - val_loss: 0.1292
+total time: 1 minutes 40.11 seconds
+
