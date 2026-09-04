@@ -1,0 +1,2 @@
+0: Strawberry___diseases
+1: Strawberry___healthy
