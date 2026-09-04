@@ -12,8 +12,8 @@ def main():
     epochs = 30
     initial_epoch = 0
 
-    model_name = f"apple_{CLASSIFY_TYPE}"
-    image_dir = f"dataset/{TASK_NAME}/{CLASSIFY_TYPE}/apple_{CLASSIFY_TYPE}"
+    model_name = f"strawberry_{CLASSIFY_TYPE}"
+    image_dir = f"dataset/{TASK_NAME}/{CLASSIFY_TYPE}/strawberry_{CLASSIFY_TYPE}"
 
     base_model, preprocess_input_function = create_mobile_net_v3_large(image_size)
 
