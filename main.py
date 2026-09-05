@@ -2,7 +2,7 @@ from pathlib import Path
 
 from analysis.csv_utils import load_history_from_csv
 from analysis.plot import draw_subplots
-from config import CLASSIFY_TYPE, TASK_NAME
+from config import CLASSIFY_TYPE, TASK_NAME, EPOCHS, IMAGE_SIZE, BATCH_SIZE
 from evaluate.evaluate import evaluate_binary_models, evaluate_categorical_models
 from model.build import create_mobile_net_v3_large, create_classification_model, create_efficient_net_v2_b2
 from model.load import load_fitted_model
@@ -13,12 +13,13 @@ from process.seg_process import segment_and_apply_masks
 from train.train import fit_and_save_model
 
 def train():
-    image_size = (256, 256)
-    epochs = 30
+    image_size = IMAGE_SIZE
+    epochs = EPOCHS
+    batch_size = BATCH_SIZE
     initial_epoch = 0
 
-    model_name = f"strawberry_{CLASSIFY_TYPE}"
-    image_dir = f"dataset/{TASK_NAME}/{CLASSIFY_TYPE}/strawberry_{CLASSIFY_TYPE}"
+    model_name = "ff_38class_efficient_net"
+    image_dir = f"dataset/{TASK_NAME}/{CLASSIFY_TYPE}/research_{CLASSIFY_TYPE}"
 
     base_model, preprocess_input_function = create_efficient_net_v2_b2(image_size)
 
@@ -26,7 +27,7 @@ def train():
         image_dir,
         preprocess_input_function,
         image_size,
-        32,
+        batch_size,
         0.15,
         model_name
     )
@@ -44,8 +45,8 @@ def train():
         export_format='keras',
         checkpoints=False,
         logging=True,
-        reduce_on_plateau=True,
-        early_stopping=True
+        reduce_on_plateau=False,
+        early_stopping=False
     )
 
     if initial_epoch != 0:
@@ -78,5 +79,4 @@ def evaluate():
     evaluate_categorical_models({'strawberry'})
 
 if __name__ == "__main__":
-    export('strawberry_binary')
-    export('strawberry_categorical')
+    train()
