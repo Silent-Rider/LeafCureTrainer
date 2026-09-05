@@ -67,16 +67,16 @@ def segment():
                             base_output_dir=Path('dataset/classify/Strawberry_out'),
                             model_name='leaf_seg_final')
 
-def export():
-    model_name = 'strawberry_binary'
+def export(model_name: str):
     task_name = 'classify'
     model = load_fitted_model(model_name, task_name)
     save_model(model, model_name, export_format='tflite', task_name=task_name)
 
 
 def evaluate():
-    # evaluate_binary_models({'strawberry'})
+    evaluate_binary_models({'strawberry'})
     evaluate_categorical_models({'strawberry'})
 
 if __name__ == "__main__":
-    train()
+    export('strawberry_binary')
+    export('strawberry_categorical')
