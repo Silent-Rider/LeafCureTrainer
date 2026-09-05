@@ -1,0 +1,70 @@
+	Epoch 1/30
+accuracy: 0.9221 - val_accuracy: 0.9792
+precision: 0.9120 - val_precision: 0.9609
+recall: 0.9335 - val_recall: 1.0000
+loss: 0.2411 - val_loss: 0.1249
+total time: 0 minutes 55.74 seconds
+
+	Epoch 2/30
+accuracy: 0.9831 - val_accuracy: 0.9875
+precision: 0.9881 - val_precision: 0.9762
+recall: 0.9778 - val_recall: 1.0000
+loss: 0.0967 - val_loss: 0.0946
+total time: 1 minutes 0.48 seconds
+
+	Epoch 3/30
+accuracy: 0.9912 - val_accuracy: 0.9833
+precision: 0.9897 - val_precision: 0.9760
+recall: 0.9926 - val_recall: 0.9919
+loss: 0.0641 - val_loss: 0.0954
+total time: 1 minutes 3.42 seconds
+
+	Epoch 4/30
+accuracy: 0.9949 - val_accuracy: 0.9833
+precision: 0.9926 - val_precision: 0.9685
+recall: 0.9970 - val_recall: 1.0000
+loss: 0.0578 - val_loss: 0.0841
+total time: 1 minutes 6.29 seconds
+
+	Epoch 5/30
+accuracy: 0.9926 - val_accuracy: 0.9792
+precision: 0.9926 - val_precision: 0.9683
+recall: 0.9926 - val_recall: 0.9919
+loss: 0.0579 - val_loss: 0.0841
+total time: 1 minutes 9.24 seconds
+
+	Epoch 6/30
+accuracy: 0.9978 - val_accuracy: 0.9833
+precision: 1.0000 - val_precision: 0.9760
+recall: 0.9956 - val_recall: 0.9919
+loss: 0.0501 - val_loss: 0.1061
+total time: 1 minutes 13.77 seconds
+
+	Epoch 7/30
+accuracy: 0.9978 - val_accuracy: 0.9792
+precision: 0.9971 - val_precision: 0.9758
+recall: 0.9985 - val_recall: 0.9837
+loss: 0.0510 - val_loss: 0.1036
+total time: 1 minutes 16.64 seconds
+
+	Epoch 8/30
+accuracy: 0.9963 - val_accuracy: 0.9792
+precision: 0.9970 - val_precision: 0.9758
+recall: 0.9956 - val_recall: 0.9837
+loss: 0.0543 - val_loss: 0.1146
+total time: 1 minutes 19.36 seconds
+
+	Epoch 9/30
+accuracy: 0.9971 - val_accuracy: 0.9833
+precision: 0.9985 - val_precision: 0.9760
+recall: 0.9956 - val_recall: 0.9919
+loss: 0.0497 - val_loss: 0.0991
+total time: 1 minutes 22.16 seconds
+
+	Epoch 10/30
+accuracy: 0.9963 - val_accuracy: 0.9792
+precision: 0.9985 - val_precision: 0.9758
+recall: 0.9941 - val_recall: 0.9837
+loss: 0.0484 - val_loss: 0.1131
+total time: 1 minutes 25.39 seconds
+
