@@ -1,0 +1,60 @@
+	Epoch 1/10
+accuracy: 0.7960 - val_accuracy: 0.9550
+f1_score: 0.7143 - val_f1_score: 0.9337
+loss: 0.7656 - val_loss: 0.2144
+total time: 3 minutes 2.77 seconds
+
+	Epoch 2/10
+accuracy: 0.8987 - val_accuracy: 0.9662
+f1_score: 0.8581 - val_f1_score: 0.9535
+loss: 0.4012 - val_loss: 0.1936
+total time: 4 minutes 27.23 seconds
+
+	Epoch 3/10
+accuracy: 0.9167 - val_accuracy: 0.9731
+f1_score: 0.8835 - val_f1_score: 0.9637
+loss: 0.3556 - val_loss: 0.1846
+total time: 5 minutes 52.93 seconds
+
+	Epoch 4/10
+accuracy: 0.9301 - val_accuracy: 0.9718
+f1_score: 0.9027 - val_f1_score: 0.9605
+loss: 0.3304 - val_loss: 0.1957
+total time: 7 minutes 27.71 seconds
+
+	Epoch 5/10
+accuracy: 0.9330 - val_accuracy: 0.9705
+f1_score: 0.9073 - val_f1_score: 0.9567
+loss: 0.3341 - val_loss: 0.2047
+total time: 8 minutes 53.48 seconds
+
+	Epoch 6/10
+accuracy: 0.9390 - val_accuracy: 0.9774
+f1_score: 0.9163 - val_f1_score: 0.9662
+loss: 0.3286 - val_loss: 0.2129
+total time: 10 minutes 19.88 seconds
+
+	Epoch 7/10
+accuracy: 0.9417 - val_accuracy: 0.9727
+f1_score: 0.9190 - val_f1_score: 0.9631
+loss: 0.3318 - val_loss: 0.2254
+total time: 11 minutes 57.09 seconds
+
+	Epoch 8/10
+accuracy: 0.9427 - val_accuracy: 0.9751
+f1_score: 0.9209 - val_f1_score: 0.9668
+loss: 0.3273 - val_loss: 0.2238
+total time: 14 minutes 5.92 seconds
+
+	Epoch 9/10
+accuracy: 0.9457 - val_accuracy: 0.9793
+f1_score: 0.9249 - val_f1_score: 0.9714
+loss: 0.3263 - val_loss: 0.2213
+total time: 15 minutes 32.38 seconds
+
+	Epoch 10/10
+accuracy: 0.9467 - val_accuracy: 0.9781
+f1_score: 0.9281 - val_f1_score: 0.9718
+loss: 0.3329 - val_loss: 0.2223
+total time: 17 minutes 54.54 seconds
+
