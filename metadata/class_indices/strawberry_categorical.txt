@@ -1,4 +1,0 @@
-0: Strawberry___Angular_leafspot
-1: Strawberry___Brown_leafspot
-2: Strawberry___Powdery_mildew
-3: Strawberry___White_leafspot

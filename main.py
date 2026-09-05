@@ -3,6 +3,7 @@ from pathlib import Path
 from analysis.csv_utils import load_history_from_csv
 from analysis.plot import draw_subplots
 from config import CLASSIFY_TYPE, TASK_NAME
+from evaluate.evaluate import evaluate_binary_models, evaluate_categorical_models
 from model.build import create_mobile_net_v3_large, create_classification_model, create_efficient_net_v2_b2
 from model.load import load_fitted_model
 from model.save import save_model
@@ -19,7 +20,7 @@ def train():
     model_name = f"strawberry_{CLASSIFY_TYPE}"
     image_dir = f"dataset/{TASK_NAME}/{CLASSIFY_TYPE}/strawberry_{CLASSIFY_TYPE}"
 
-    base_model, preprocess_input_function = create_mobile_net_v3_large(image_size)
+    base_model, preprocess_input_function = create_efficient_net_v2_b2(image_size)
 
     train_dataset, val_dataset = get_classification_train_val_datasets(
         image_dir,
@@ -71,6 +72,11 @@ def export():
     task_name = 'classify'
     model = load_fitted_model(model_name, task_name)
     save_model(model, model_name, export_format='tflite', task_name=task_name)
+
+
+def evaluate():
+    # evaluate_binary_models({'strawberry'})
+    evaluate_categorical_models({'strawberry'})
 
 if __name__ == "__main__":
     train()
