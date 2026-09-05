@@ -4,7 +4,8 @@ from analysis.csv_utils import load_history_from_csv
 from analysis.plot import draw_subplots
 from config import CLASSIFY_TYPE, TASK_NAME, EPOCHS, IMAGE_SIZE, BATCH_SIZE
 from evaluate.evaluate import evaluate_binary_models, evaluate_categorical_models
-from model.build import create_mobile_net_v3_large, create_classification_model, create_efficient_net_v2_b2
+from model.build import create_mobile_net_v3_large, create_classification_model, create_efficient_net_v2_b2, \
+    create_resnet50
 from model.load import load_fitted_model
 from model.save import save_model
 from process.augment import augment_dataset
@@ -18,10 +19,10 @@ def train():
     batch_size = BATCH_SIZE
     initial_epoch = 0
 
-    model_name = "ff_38class_efficient_net"
+    model_name = "ff_38class_resnet"
     image_dir = f"dataset/{TASK_NAME}/{CLASSIFY_TYPE}/research_{CLASSIFY_TYPE}"
 
-    base_model, preprocess_input_function = create_efficient_net_v2_b2(image_size)
+    base_model, preprocess_input_function = create_resnet50(image_size)
 
     train_dataset, val_dataset = get_classification_train_val_datasets(
         image_dir,
