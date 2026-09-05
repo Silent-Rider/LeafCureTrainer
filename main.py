@@ -3,11 +3,15 @@ from pathlib import Path
 from analysis.csv_utils import load_history_from_csv
 from analysis.plot import draw_subplots
 from config import CLASSIFY_TYPE, TASK_NAME
-from model.build import create_mobile_net_v3_large, create_classification_model
+from model.build import create_mobile_net_v3_large, create_classification_model, create_efficient_net_v2_b2
+from model.load import load_fitted_model
+from model.save import save_model
+from process.augment import augment_dataset
 from process.data_gen import get_classification_train_val_datasets
+from process.seg_process import segment_and_apply_masks
 from train.train import fit_and_save_model
 
-def main():
+def train():
     image_size = (256, 256)
     epochs = 30
     initial_epoch = 0
@@ -48,5 +52,25 @@ def main():
 
     draw_subplots(history, filename=f'{model_name}.png')
 
+
+def augment():
+    augment_dataset(should_create_mask=False,
+                    src_images_dir="dataset/classify/Strawberry/Strawberry Powdery Mildew",
+                    aug_images_dir="dataset/classify/Strawberry/Strawberry Powdery Mildew_aug",
+                    aug_factor=1)
+
+
+def segment():
+    segment_and_apply_masks(base_input_dir=Path('dataset/classify/Strawberry'),
+                            mask_output_dir=Path('dataset/classify/Strawberry_masks'),
+                            base_output_dir=Path('dataset/classify/Strawberry_out'),
+                            model_name='leaf_seg_final')
+
+def export():
+    model_name = 'strawberry_binary'
+    task_name = 'classify'
+    model = load_fitted_model(model_name, task_name)
+    save_model(model, model_name, export_format='tflite', task_name=task_name)
+
 if __name__ == "__main__":
-    main()
+    train()
