@@ -4,14 +4,14 @@ from analysis.csv_utils import load_history_from_csv
 from analysis.plot import draw_subplots
 from config import CLASSIFY_TYPE, TASK_NAME, EPOCHS, IMAGE_SIZE, BATCH_SIZE
 from evaluate.evaluate import evaluate_binary_models, evaluate_categorical_models
-from model.build import create_mobile_net_v3_large, create_classification_model, create_efficient_net_v2_b2, \
-    create_resnet50
+from model.build import create_classification_model, create_resnet50
 from model.load import load_fitted_model
 from model.save import save_model
 from process.augment import augment_dataset
 from process.data_gen import get_classification_train_val_datasets
 from process.seg_process import segment_and_apply_masks
 from train.train import fit_and_save_model
+
 
 def train():
     image_size = IMAGE_SIZE
